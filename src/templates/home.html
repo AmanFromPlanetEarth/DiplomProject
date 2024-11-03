@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <input type="text" placeholder="Введите Ваше имя" id="userName">
+        <input type="text" placeholder="Введите Ваш номер телефона" id="userPhone">
+        <br>
+        <button id="reg_btn">Вход</button>
+    </form>
+    <form>
+        <label>Удалиться</label>
+        <input type="text" placeholder="Введите Ваш номер телефона" id="deleteUser">
+        <button id="delete_btn">Удалить</button>
+    </form>
+    <a></a>
+    <script>
+        const reg_btn = document.getElementById('reg_btn');
+        reg_btn.addEventListener('click', function(event){
+            event.preventDefault();
+            let userName = document.getElementById('userName').value
+            let userPhone = document.getElementById('userPhone').value
+            data = {'name' : userName, 'phone' : userPhone}
+            fetch('http://127.0.0.1:8000/users/create_user/',
+            {
+                method: 'POST',
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+        })
+
+        const delete_btn = document.getElementById('delete_btn')
+        delete_btn.addEventListener('click', function(event){
+            event.preventDefault()
+            let userDelete = document.getElementById('deleteUser')
+            fetch(`http://127.0.0.1:8000/users/delete_user/?user_phone=${userDelete.value}`, {
+                method: 'DELETE',
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+
+            })
+        })
+        
+    </script>
+</body>
+</html>
