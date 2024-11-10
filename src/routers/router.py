@@ -2,7 +2,8 @@ from fastapi import APIRouter, Request, HTTPException
 from sqlalchemy.orm import Session
 from schema.user_shema import UserCreate
 from models.model import UserModel, RestaurantModel
-from schema.user_shema import UserCreate,UserUpdate, RestaurantCreate, RestaurantUpdate
+from schema.user_shema import UserCreate, UserUpdate
+from schema.restaurant_shema import RestaurantCreate, RestaurantUpdate
 from database.DB import engine
 from sqlalchemy import select, insert, update, delete
 
@@ -12,9 +13,9 @@ restaraunt_router = APIRouter(prefix="/restaraunt", tags=['Рестораны'])
 
 #Пользователи
 @user_router.get(path="/get_user/")
-def get_user(request: Request, user_id: int):
+def get_user(request: Request, user: UserCreate):
     session = Session(engine)
-    stmt = select(UserModel).where(UserModel.id == user_id)
+    stmt = select(UserModel).where(UserModel.phone == user.phone)
     result = session.execute(stmt)
     user = result.scalars().all()
     session.close()
