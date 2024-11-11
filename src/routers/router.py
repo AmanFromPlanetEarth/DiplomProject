@@ -22,7 +22,7 @@ def get_user(request: Request, user: UserCreate):
     return user
 
 
-@user_router.post(path="/create_user/")
+@user_router.post(path="/api/users/register")
 def create_user(request: Request, user: UserCreate):
     try:
         session = Session(engine)
@@ -39,7 +39,7 @@ def create_user(request: Request, user: UserCreate):
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@user_router.put(path="/update_user/")
+"""@user_router.put(path="/update_user/")
 def user_update(request:Request, user_id: int, new_user: UserUpdate):
     session = Session(engine)
     stmt = update(UserModel).where(UserModel.id == user_id).values(
@@ -49,7 +49,7 @@ def user_update(request:Request, user_id: int, new_user: UserUpdate):
     user = session.execute(stmt)
     session.commit()
     session.close()
-    return user
+    return user"""
 
 
 @user_router.delete(path="/delete_user/")
