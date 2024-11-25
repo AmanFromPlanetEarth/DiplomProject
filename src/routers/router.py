@@ -37,6 +37,10 @@ def create_user(request: Request, user: UserCreate):
         return user
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+@user_router.post(path="/api/users/login")
+def login_user(request: Request, user: UserCreate):
+    pass
 
 
 """@user_router.put(path="/update_user/")

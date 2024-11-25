@@ -25,7 +25,7 @@
             let userName = document.getElementById('userName').value
             let userPhone = document.getElementById('userPhone').value
             data = {'name' : userName, 'phone' : userPhone}
-            fetch('http://127.0.0.1:8000/users/create_user/',
+            fetch('http://127.0.0.1:8000/users/api/users/register',
             {
                 method: 'POST',
                 headers: {

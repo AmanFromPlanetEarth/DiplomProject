@@ -1,5 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "sqlite:///users.db"
-engine = create_engine(DATABASE_URL, echo=True)
+from pydantic_settings import BaseSettings
+
+class Settings(BaseSettings):
+    DATABASE_URL: str
+
+    class Config:
+        env_file = ".env"
+
+
+settings = Settings()
+
+engine = create_engine(settings.DATABASE_URL, echo=True)
